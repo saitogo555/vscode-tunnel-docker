@@ -1,0 +1,13 @@
+services:
+  vscode-tunnel:
+    build: .
+    container_name: vscode-tunnel
+    restart: unless-stopped
+    volumes:
+      - vscode-cli-data:/home/ubuntu/.vscode-cli
+    environment:
+      - TUNNEL_NAME=remote-machine
+      - VSCODE_CLI_USE_FILE_KEYCHAIN=1
+
+volumes:
+  vscode-cli-data:
