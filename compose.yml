@@ -1,6 +1,8 @@
 services:
   vscode-tunnel:
-    build: .
+    build: 
+      context: .
+      network: host
     container_name: vscode-tunnel
     restart: unless-stopped
     volumes:
