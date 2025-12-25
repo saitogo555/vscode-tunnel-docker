@@ -1,4 +1,4 @@
-FROM ubuntu:25.10
+FROM ubuntu:25.04
 
 USER root
 
@@ -6,7 +6,8 @@ WORKDIR /root
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y curl git make sudo
+    apt-get install -y curl git make sudo ca-certificates && \
+    apt-get clean
 
 # Install VSCode CLI
 RUN curl -Lk "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64" -o vscode_cli.tar.gz
@@ -27,4 +28,4 @@ WORKDIR /home/ubuntu
 
 # Entry point to start VSCode tunnel
 # name of the tunnel can be specified via environment variable TUNNEL_NAME
-ENTRYPOINT /usr/local/bin/code tunnel --name "${TUNNEL_NAME}" --accept-server-license-terms
+ENTRYPOINT ["/bin/sh", "-c", "/usr/local/bin/code tunnel --name \"${TUNNEL_NAME}\" --accept-server-license-terms"]
